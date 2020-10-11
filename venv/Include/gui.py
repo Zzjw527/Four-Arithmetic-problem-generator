@@ -117,15 +117,20 @@ def creatGUI(n_paramet, r_paramet):
 
         def is_number(uchar1, uchar2):
             if uchar1.isdigit():
-                global n_parameter
-                n_parameter = uchar1
-                print(n_parameter)
+                if (int(uchar1)>0):
+                    global n_parameter
+                    n_parameter = uchar1
+                else:
+                    tkinter.messagebox.showerror('题目个数数据错误', '请填写大于0的整数数据')
             else:
                 tkinter.messagebox.showerror('题目个数数据错误', '请填写整数数据')
             if uchar2.isdigit():
-                global r_parameter
-                r_parameter = uchar2
-                print(r_parameter)
+                if (int(uchar2) > 0):
+                    global r_parameter
+                    r_parameter = uchar2
+                else:
+                    tkinter.messagebox.showerror('范围数据错误', '请填写大于0的整数数据')
+
             else:
                 tkinter.messagebox.showerror('范围数据错误', '请填写整数数据')
 

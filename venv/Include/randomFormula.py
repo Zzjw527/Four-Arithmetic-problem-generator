@@ -204,8 +204,7 @@ def checkrepeat(q_list, all_question, a_list, all_answer):
         samesymbol = [x for x in symbol if x in all_symbol]
         sameanswer = [x for x in a_list if x in all_answer]
         if (len(samesymbol) and len(sameanswer) and gmind):
-            print(len(samesymbol))
-            print(len(sameanswer))
+
             return True
         else:
             return False
