@@ -168,18 +168,20 @@ def randomFormula(maxNum):
 # 判断生成算式是否重复，若重复重新生成
 def checkrepeat(q_list, all_question, a_list, all_answer):
     if (len(all_question) and len(all_answer)):
+        gmind=1
         const_op = ("+", "-", "×", "÷")
         numbernum = []
-        all_num = []
         symbol = []
         all_symbol = []
         for alnum in processeFormula(q_list[0]):
             if alnum in const_op:
                 symbol.append(alnum)
-        numbernum.append(len(processeFormula(q_list[0])) - len(symbol))
 
+        numbernum=[x for x in processeFormula(q_list[0]) if x not in symbol]
+#
         for alqust in all_question:
             num = 0
+            all_num = []
             for alqustnum in processeFormula(alqust):
 
                 singlequst = []
@@ -188,12 +190,22 @@ def checkrepeat(q_list, all_question, a_list, all_answer):
                     num += 1
                 if (len(singlequst)):
                     all_symbol.append(singlequst[0])
-            all_num.append(len(processeFormula(alqust)) - num)
-
+            all_num=[x for x in processeFormula(alqust) if x not in all_symbol]
+            if(len(symbol)==1 and (symbol[0]=="+" or symbol[0]=="×")):
+                if(all_num.sort()==numbernum.sort()):
+                    return True
+            else:
+                if(all_num==numbernum):
+                    return True
+                else:
+                    gmind=0
+            # all_num.append(len(processeFormula(alqust)) - num)
+        # all_num=[x for x in processeFormula(q_list[0]) if x not in symbol]
         samesymbol = [x for x in symbol if x in all_symbol]
         sameanswer = [x for x in a_list if x in all_answer]
-        samenum = [x for x in numbernum if x in all_num]
-        if (len(samesymbol) and len(sameanswer) and len(samenum)):
+        if (len(samesymbol) and len(sameanswer) and gmind):
+            print(len(samesymbol))
+            print(len(sameanswer))
             return True
         else:
             return False

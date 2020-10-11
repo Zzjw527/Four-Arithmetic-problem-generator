@@ -40,6 +40,12 @@ def creatGUI(n_paramet, r_paramet):
     #        q_spilt=re.split('\n',question_text)
     #        a_spilt=re.split('\n',answer_text)
     #        aqdict=dict(zip(q_spilt,a_spilt))
+    def renameaq(aq):
+        last_aq = []
+        for change in aq:
+            print(change)
+            last_aq.append("".join(str(i) for i in processeFormula(change)))
+        return last_aq
     def get_current_time():
         current_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
         return current_time
@@ -60,12 +66,15 @@ def creatGUI(n_paramet, r_paramet):
 
                 q_spilt = re.split('\n', question_text)
                 a_spilt = re.split('\n', answer_text)
+                q_spilt = [i for i in q_spilt if i != '']
+                a_spilt = [i for i in a_spilt if i != '']
+                q_spilt=renameaq(q_spilt)
+                a_spilt = renameaq(a_spilt)
                 if (len(q_spilt) == len(a_spilt)):
                     text.insert(END, "正在检查问题答案对错.....\n时间：" + get_current_time() + "\n问题文件:" + file1 +
                                 "\n答案文件:" + file2 + "\n一共有" + str(len(q_spilt)) + "道题目\n\n")
-
+                    strlabel.set('检查题目： 已检查'+ str(len(q_spilt)) + '道题目')
                     aq_dict = dict(zip(q_spilt, a_spilt))
-
                     checkanswers = checkAnswers(aq_dict)
                     wrong_list = wrongAnswers(aq_dict)
 
@@ -131,11 +140,11 @@ def creatGUI(n_paramet, r_paramet):
         toptap = Label(frmcheck, text='请分别输入题目与答案文件的绝对路径', font=("微软雅黑", 10), fg='red')
         toptap.pack(fill=X, padx=10, pady=3)
         check_entry_question = Entry(frmcheck, width=10, cursor='mouse')
-        # check_entry_question.insert(END, r"C:\Users\hp\Desktop\大三上\question.txt")
+        # check_entry_question.insert(END, r"C:\Users\hp\Desktop\大三上\Exercises.txt")
         check_entry_question.insert(END, "请输入题目文件绝对路径")
         check_entry_question.pack(fill=X, padx=10, pady=3)
         check_entry_answer = Entry(frmcheck, width=10, cursor='mouse')
-        # check_entry_answer.insert(END, r"C:\Users\hp\Desktop\大三上\answer.txt")
+        # check_entry_answer.insert(END, r"C:\Users\hp\Desktop\大三上\Answers.txt")
         check_entry_answer.insert(END, "请输入答案文件绝对路径")
         check_entry_answer.pack(fill=X, padx=10, pady=3)
         checkbutton = Button(frmcheck, text="验证答案", bg="lightblue", width=20,
@@ -225,7 +234,7 @@ def creatGUI(n_paramet, r_paramet):
     tlabel = Label(frmrz, textvariable=warnlabel)
     tlabel.grid(row=1, column=4)
     warnlabel.set('')
-    strlabel.set('生成题目： 已生成0个题目')
+    strlabel.set('检查题目： 已检查0道题目')
 
     thebutton1 = Button(frmbutton, text="开始生成题目", bg="lightblue", width=20,
                         command=lambda: thread_it(start(n_parameter, r_parameter)))

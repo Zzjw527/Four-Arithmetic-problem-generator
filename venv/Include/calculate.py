@@ -5,8 +5,9 @@ from fractions import Fraction
 #处理算式
 def processeFormula( formula ):
 
-    par = formula.partition('.')
-    test = par[2].partition('=')[0][:]
+    if '.' in formula :
+        par = formula.partition('.')
+        formula = par[2].partition('=')[0][:]
 
     formula = re.sub(' ', '', formula)
     l = list(filter(None, re.split('([\+\-\×\÷\(\)])', formula)))
@@ -84,7 +85,9 @@ def transformFractionToTrue(result):
             m = int(int(list[0]) / int(list[1]))
             result = str(m) + "'" + str(int(list[0]) - m * int(list[1])) + '/' + list[1]
            # "".join(str(i) for i in result)
-    return result
+            return result
+
+    return result[0]
 
 
 #对数字进行处理，例如将真分数转为假分数
