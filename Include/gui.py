@@ -174,7 +174,7 @@ def creatGUI(n_paramet, r_paramet):
         topbuttonq.pack(fill=X, padx=10, pady=3)
         topbuttona = Button(frmtop, text="查看答案", bg="lightblue", width=20,
                             command=lambda: toptext.insert(END, "时间： " + get_current_time() + "\n"
-                                                           + "操作： 验证答案\n" + "问题： " + xu[1] + "\n" + "答案： " +
+                                                           + "操作： 查看答案\n" + "问题： " + xu[1] + "\n" + "答案： " +
                                                            allaqdict[xu[1]][0] + "\n\n"))
         topbuttona.pack(fill=X, padx=10, pady=3)
         tlabel = Label(frmtop, text='↓↓↓记录↓↓↓', font=("微软雅黑", 10), fg='red')

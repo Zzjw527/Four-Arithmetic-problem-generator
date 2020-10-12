@@ -65,7 +65,7 @@ def calculate( num1, num2, op ):
         result = num1 + num2
     elif op == '-':
         result = num1 - num2
-        if num2 < 0:
+        if result < 0:
             return 'False'
     elif op == '×':
         result = num1 * num2
